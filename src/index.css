@@ -12,7 +12,6 @@ html {
 
 body {
   margin: 0px;
-  font-smoothing: antialiased;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-y: auto;
