@@ -1,6 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App from './App';
+import { GlobalStateProvider } from './providers/global-state-provider';
+import App from './components/app/app';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+  <GlobalStateProvider>
+    <App />
+  </GlobalStateProvider>,
+  document.getElementById('root'),
+);

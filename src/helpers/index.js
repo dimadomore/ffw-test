@@ -1,3 +1,5 @@
+import contentSelector from './content-selector';
+
 const isArray = (a) => {
   return Array.isArray(a);
 };
@@ -33,4 +35,4 @@ const keysToCamel = (o) => {
   return o;
 };
 
-export { keysToCamel };
+export { keysToCamel, contentSelector };

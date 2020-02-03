@@ -1,40 +1,37 @@
-import React, { useState } from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import FontCard from '../font-card/font-card';
+import useGlobalState from '../../hooks/use-global-state';
+import FontCard from './font-card/font-card';
 
 export default function FontCardList({ items }) {
-  const [selectedCard, selectCard] = useState();
+  const { globalState, setGlobalState } = useGlobalState();
+  const { selectedCard } = globalState;
 
-  const cards = [
-    {
-      id: 112,
-      abbr: 'M',
-      color: '#00A653',
-      'color-blind-label': 'green',
-      label: 'Merriweather project is led by Sorkin Type',
+  const selectCard = useCallback(
+    (id) => {
+      setGlobalState({ type: 'SELECT_FONT_CARD', payload: id });
     },
-    {
-      id: 113,
-      abbr: 'R',
-      color: '#FE7FC3',
-      'color-blind-label': 'pink',
-      label: "Roboto doesn't compromise, allowing letters",
+    [setGlobalState],
+  );
+
+  const isCardSelected = useCallback(
+    (cardId) => {
+      return cardId === selectedCard;
     },
-    {
-      id: 114,
-      abbr: 'NS',
-      color: '#046DFF',
-      'color-blind-label': 'blue',
-      label: 'Noto Sans covers over 30 scripts',
-    },
-  ];
+    [selectedCard],
+  );
 
   return (
     <Container>
-      {cards.map((card) => (
-        <FontCard key={card.id} {...card} />
+      {items.map((card) => (
+        <FontCard
+          key={card.id}
+          {...card}
+          onSelect={selectCard}
+          isSelected={isCardSelected(card.id)}
+        />
       ))}
     </Container>
   );

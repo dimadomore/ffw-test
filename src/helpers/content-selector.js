@@ -1,7 +1,8 @@
 import React from 'react';
 
-import FontCardList from '../font-card-list/font-card-list';
-import TextContent from '../text-content/text-content';
+import FontCardList from '../components/font-card-list/font-card-list';
+import TextContent from '../components/text-content/text-content';
+
 const contentTypes = {
   fontSelection: 'Font selection',
   text: 'Text',

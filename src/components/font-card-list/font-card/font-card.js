@@ -1,28 +1,36 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import useDimensions from '../../hooks/use-dimensions';
+const FontCard = React.memo(
+  ({ id, abbr, color, colorBlindLabel, label, isSelected, onSelect, as }) => {
+    const handleClick = useCallback(() => {
+      onSelect(id);
+    }, [id, onSelect]);
 
-export default function FontCard({ abbr, color, colorBlindLabel, label, isSelected }) {
-  return (
-    <Container isSelected={isSelected}>
-      <AbbrContainer color={color}>
-        <Abbr>{abbr}</Abbr>
-      </AbbrContainer>
-      <LabelContainer>
-        <Label>{label}</Label>
-      </LabelContainer>
-    </Container>
-  );
-}
+    return (
+      <Container isSelected={isSelected} as={as} onClick={handleClick}>
+        <AbbrContainer color={color}>
+          <Abbr>{abbr}</Abbr>
+        </AbbrContainer>
+        <LabelContainer>
+          <Label>{label}</Label>
+        </LabelContainer>
+      </Container>
+    );
+  },
+);
+
+export default FontCard;
 
 FontCard.propTypes = {
-  id: PropTypes.number,
+  id: PropTypes.number.isRequired,
   abbr: PropTypes.string.isRequired,
   color: PropTypes.string.isRequired,
   colorBlindLabel: PropTypes.string,
   label: PropTypes.string.isRequired,
+  as: PropTypes.string,
+  onSelect: PropTypes.func,
 };
 
 /* Styled components
@@ -32,6 +40,7 @@ const Container = styled.li`
   align-items: center;
   flex-wrap: wrap;
   opacity: ${({ isSelected }) => isSelected && '0.5'};
+  cursor: pointer;
 `;
 
 const AbbrContainer = styled.div`
