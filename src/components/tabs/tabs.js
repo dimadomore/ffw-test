@@ -47,12 +47,11 @@ export default function Tabs({ items, side = 'right', onTabSelect, children, cla
 }
 
 Tabs.propTypes = {
+  className: PropTypes.string,
   children: PropTypes.instanceOf(Array).isRequired,
   items: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number,
       label: PropTypes.string.isRequired,
-      contentEndpoint: PropTypes.string,
     }),
   ),
   onTabSelect: PropTypes.func,

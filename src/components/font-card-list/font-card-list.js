@@ -38,12 +38,15 @@ export default function FontCardList({ items }) {
 }
 
 FontCardList.propTypes = {
-  data: PropTypes.shape({
-    id: PropTypes.number,
-    label: PropTypes.string,
-  }),
-  isSelected: PropTypes.bool,
-  onTabClick: PropTypes.func,
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      abbr: PropTypes.string.isRequired,
+      color: PropTypes.string.isRequired,
+      colorBlindLabel: PropTypes.string,
+      label: PropTypes.string.isRequired,
+    }),
+  ),
 };
 
 /* Styled components

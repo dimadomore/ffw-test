@@ -31,6 +31,7 @@ FontCard.propTypes = {
   label: PropTypes.string.isRequired,
   as: PropTypes.string,
   onSelect: PropTypes.func,
+  isSelected: PropTypes.bool,
 };
 
 /* Styled components
