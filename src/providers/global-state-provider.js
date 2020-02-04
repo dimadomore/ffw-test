@@ -5,7 +5,7 @@ const reducer = (state, action) => {
 
   switch (type) {
     case 'SELECT_FONT_CARD':
-      return { ...state, selectedCard: payload };
+      return { ...state, selectedCard: state.selectedCard === payload ? null : payload };
     case 'SET_TABS':
       return { ...state, tabs: payload };
     case 'SET_TAB_CONTENT':

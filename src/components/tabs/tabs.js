@@ -33,7 +33,7 @@ export default function Tabs({ items, side = 'right', onTabSelect, children, cla
           />
         ))}
       </TabsList>
-      <div className="tab-content">
+      <div className="tab-panel">
         {children &&
           children.length > 1 &&
           children.map((child) => {
@@ -55,12 +55,22 @@ Tabs.propTypes = {
     }),
   ),
   onTabSelect: PropTypes.func,
-  side: PropTypes.oneOf(['left', 'right']),
+  side: PropTypes.oneOf(['left', 'right', 'center']),
 };
 
 /* Styled components
    ========================================================================== */
 const TabsList = styled.div`
   display: flex;
-  justify-content: ${({ side }) => (side === 'right' ? 'flex-end' : 'flex-start')};
+  justify-content: ${({ side }) => {
+    if (side === 'right') {
+      return 'flex-end';
+    }
+    if (side === 'left') {
+      return 'flex-start';
+    }
+    if (side === 'center') {
+      return 'center';
+    }
+  }};
 `;

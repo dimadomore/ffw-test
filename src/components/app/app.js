@@ -47,7 +47,7 @@ export default function App() {
   );
 
   return (
-    <Container style={{ padding: '30px' }}>
+    <Container>
       <Title>Please select one font</Title>
       <Tabs items={tabs} onTabSelect={handleTabSelect} side="right">
         {tabs.map(({ id, label }) => {
@@ -71,23 +71,48 @@ export default function App() {
 
 /* Styled components
    ========================================================================== */
+const Title = styled.div`
+  font-weight: 600;
+  font-size: 30px;
+  position: absolute;
+  margin-left: 15px;
+`;
+
 const Container = styled.div`
   padding: 30px;
+  width: 100%;
 
-  .tab-content {
+  .tabs-list {
+    margin-top: 15px;
+  }
+  .tab-panel {
     border: 3px solid #becadf;
     border-radius: 10px;
-    padding: 30px;
+    padding: 50px;
     margin-top: 30px;
     min-width: 300px;
   }
-`;
 
-const Title = styled.div`
-  font-weight: 500;
-  font-size: 34px;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  opacity: ${({ isSelected }) => isSelected && '0.5'};
+  @media (max-width: 749px) {
+    ${Title} {
+      position: static;
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 10px;
+      margin-left: 0;
+    }
+
+    .tabs-list {
+      justify-content: center;
+
+      .tab {
+        margin: 0 20px;
+      }
+    }
+
+    .tab-panel {
+      padding: 20px;
+      margin-top: 10px;
+    }
+  }
 `;

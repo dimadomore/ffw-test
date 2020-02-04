@@ -45,7 +45,8 @@ const Container = styled.button`
 
   text-transform: uppercase;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 14px;
+  /* I think the font is wider on the png image (Maybe I'm wrong) */
   transform: scale(1.1, 1);
 
   color: ${({ isSelected }) => (isSelected ? '#BFCADF' : '#F54B00')};

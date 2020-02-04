@@ -1,20 +1,30 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const FontCard = React.memo(
-  ({ id, abbr, color, colorBlindLabel, label, isSelected, onSelect, as }) => {
-    const handleClick = useCallback(() => {
-      onSelect(id);
-    }, [id, onSelect]);
+  ({ id, abbr, color, colorBlindLabel, label, isSelected, onSelect, as, className }) => {
+    const handleClick = useCallback(() => onSelect(id), [id, onSelect]);
+
+    const croppedLabel = useMemo(
+      () => (label.length > 55 ? `${label.substring(0, 55)}...` : label),
+      [label],
+    );
 
     return (
-      <Container isSelected={isSelected} as={as} onClick={handleClick}>
-        <AbbrContainer color={color}>
+      <Container
+        className={className}
+        isSelected={isSelected}
+        as={as}
+        onClick={handleClick}
+        aria-label={colorBlindLabel}
+        aria-describedby={label}
+      >
+        <AbbrContainer color={color} className="abbr-container">
           <Abbr>{abbr}</Abbr>
         </AbbrContainer>
-        <LabelContainer>
-          <Label>{label}</Label>
+        <LabelContainer className="label-container" title={label}>
+          <Label>{croppedLabel}</Label>
         </LabelContainer>
       </Container>
     );
@@ -32,6 +42,7 @@ FontCard.propTypes = {
   as: PropTypes.string,
   onSelect: PropTypes.func,
   isSelected: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 /* Styled components
@@ -53,9 +64,10 @@ const AbbrContainer = styled.div`
   height: 100px;
   min-height: 100px;
   box-shadow: inset 0px 0px 0px 3px white;
-  border: 1px solid black;
+  border: 2px solid black;
   background-color: ${({ color }) => color};
   padding: 15px;
+  margin-right: 20px;
 `;
 
 const Abbr = styled.span`
@@ -66,16 +78,18 @@ const Abbr = styled.span`
 `;
 
 const LabelContainer = styled.div`
-  width: 200px;
+  flex: 1;
+  /* max-width: 300px; */
+  min-width: 210px;
 `;
 
 const Label = styled.div`
-  font-weight: 500;
+  font-weight: 600;
   font-size: 20px;
   line-height: 30px;
   hyphens: auto;
   position: relative;
-  margin-left: 25px;
+  margin-left: 15px;
 
   ::before {
     display: inline-block;
