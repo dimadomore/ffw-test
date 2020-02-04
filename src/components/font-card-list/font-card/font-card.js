@@ -21,7 +21,7 @@ const FontCard = React.memo(
         aria-describedby={label}
       >
         <AbbrContainer color={color} className="abbr-container">
-          <Abbr>{abbr}</Abbr>
+          <Abbr className="abbr">{abbr}</Abbr>
         </AbbrContainer>
         <LabelContainer className="label-container" title={label}>
           <Label>{croppedLabel}</Label>

@@ -73,8 +73,8 @@ const Container = styled.div`
       justify-content: center;
     }
 
-    @media (min-width: 750px) and (max-width: 1000px) {
-      grid-template-columns: 200px repeat(auto-fit, minmax(300px, 500px));
+    @media (min-width: 770px) and (max-width: 1000px) {
+      grid-template-columns: 230px repeat(auto-fit, minmax(300px, 500px));
 
       .font-card_container:nth-child(3n + 1) {
         grid-row: span 2;
@@ -82,11 +82,14 @@ const Container = styled.div`
           transform: scale(1.3);
           border-width: 1px;
           margin: 0 0 0 15px;
+          .abbr {
+            font-size: 34px;
+          }
         }
       }
     }
 
-    @media (max-width: 749px) {
+    @media (max-width: 769px) {
       grid-template-columns: minmax(200px, 500px);
       grid-template-rows: min-content;
       grid-gap: 30px;
