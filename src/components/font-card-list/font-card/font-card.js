@@ -2,9 +2,21 @@ import React, { useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import { keys } from '../../../helpers';
+
 const FontCard = React.memo(
   ({ id, abbr, color, colorBlindLabel, label, isSelected, onSelect, as, className }) => {
-    const handleClick = useCallback(() => onSelect(id), [id, onSelect]);
+    const handleSelect = useCallback(() => onSelect(id), [id, onSelect]);
+
+    const handleClick = useCallback(() => handleSelect(), [handleSelect]);
+    const handleKeyDown = useCallback(
+      (e) => {
+        if (e.which === keys.enter) {
+          handleSelect();
+        }
+      },
+      [handleSelect],
+    );
 
     const croppedLabel = useMemo(
       () => (label.length > 55 ? `${label.substring(0, 55)}...` : label),
@@ -14,13 +26,18 @@ const FontCard = React.memo(
     return (
       <Container
         className={className}
-        isSelected={isSelected}
-        as={as}
         onClick={handleClick}
-        aria-label={colorBlindLabel}
-        aria-describedby={label}
+        tabIndex={0}
+        onKeyDown={handleKeyDown}
+        isSelected={isSelected}
+        aria-selected={isSelected}
+        as={as}
       >
-        <AbbrContainer color={color} className="abbr-container">
+        <AbbrContainer
+          className="abbr-container"
+          aria-label={`${colorBlindLabel} color`}
+          color={color}
+        >
           <Abbr className="abbr">{abbr}</Abbr>
         </AbbrContainer>
         <LabelContainer className="label-container" title={label}>
@@ -79,7 +96,6 @@ const Abbr = styled.span`
 
 const LabelContainer = styled.div`
   flex: 1;
-  /* max-width: 300px; */
   min-width: 210px;
 `;
 

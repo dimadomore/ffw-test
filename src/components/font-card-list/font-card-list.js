@@ -25,7 +25,7 @@ export default function FontCardList({ items }) {
 
   return (
     <Container>
-      <ul>
+      <ul tabIndex={0}>
         {items.map((card) => (
           <FontCard
             className="font-card_container"

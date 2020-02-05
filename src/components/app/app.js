@@ -12,9 +12,13 @@ export default function App() {
   const { tabs, tabContents } = globalState;
 
   const fetchTabs = useCallback(async () => {
-    const result = await api.getTabs();
+    try {
+      const result = await api.getTabs();
 
-    setGlobalState({ type: 'SET_TABS', payload: result });
+      setGlobalState({ type: 'SET_TABS', payload: result });
+    } catch (error) {
+      console.warn(error);
+    }
   }, [setGlobalState]);
 
   const fetchTabContent = useCallback(
@@ -22,9 +26,12 @@ export default function App() {
       const { contentEndpoint, id } = tabData;
 
       if (contentEndpoint && id) {
-        const data = await api.getTabContent(contentEndpoint);
-
-        setGlobalState({ type: 'SET_TAB_CONTENT', payload: { id, data } });
+        try {
+          const data = await api.getTabContent(contentEndpoint);
+          setGlobalState({ type: 'SET_TAB_CONTENT', payload: { id, data } });
+        } catch (error) {
+          console.warn(error);
+        }
       }
     },
     [setGlobalState],
@@ -35,7 +42,7 @@ export default function App() {
   }, [fetchTabs]);
 
   const handleTabSelect = useCallback(
-    async (tabData) => {
+    (tabData) => {
       const { id } = tabData;
 
       // prevent refetch tab data
@@ -49,7 +56,7 @@ export default function App() {
   return (
     <Container>
       <Title>Please select one font</Title>
-      <Tabs items={tabs} onTabSelect={handleTabSelect} side="right">
+      <Tabs items={tabs} onTabSelect={handleTabSelect} name="Font selection" side="right">
         {tabs.map(({ id, label }) => {
           const tabContent = tabContents[id];
 

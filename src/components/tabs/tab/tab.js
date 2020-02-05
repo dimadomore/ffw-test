@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
@@ -14,11 +14,24 @@ const Tab = React.memo(({ data, isSelected = false, onTabSelect, setActiveTab, t
   useEffect(() => {
     if (isSelected) {
       onTabSelect(data);
+      ref.current.focus();
     }
   }, [data, isSelected, onTabSelect]);
 
+  const ref = useRef();
+
   return (
-    <Container className="tab" isSelected={isSelected} onClick={selectTab} tabsSide={tabsSide}>
+    <Container
+      className="tab"
+      role="tab"
+      tabIndex={!isSelected ? -1 : 0}
+      aria-selected={isSelected}
+      id={label}
+      isSelected={isSelected}
+      onClick={selectTab}
+      tabsSide={tabsSide}
+      ref={ref}
+    >
       {label}
     </Container>
   );
